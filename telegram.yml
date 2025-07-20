@@ -8,19 +8,12 @@ jobs:
   notify-owner:
     runs-on: ubuntu-latest
     steps:
-      - name: Send direct message
+      - name: Send to Telegram
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-          OWNER_ID: ${{ secrets.CHAT_ID }}
+          OWNER_ID: "7849712634"  # Langsung pakai ID owner
         run: |
-          MESSAGE="🚀 *Pesan Baru* dari QnA ZanDKav\n"
-          MESSAGE+="━━━━━━━━━━━━━━━━\n"
-          MESSAGE+="👤 Nama: ${{ github.event.client_payload.name }}\n"
-          MESSAGE+="📱 Telegram: @${{ github.event.client_payload.telegram }}\n\n"
-          MESSAGE+="💬 Pesan:\n${{ github.event.client_payload.message }}"
-
-          curl -s -X POST \
-          "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" \
+          curl -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" \
           -d chat_id="$OWNER_ID" \
-          -d text="$MESSAGE" \
-          -d parse_mode="Markdown"
+          -d text="📩 Pesan Baru dari QnA%0A━━━━━━━━━━%0Nama: ${{ github.event.client_payload.name }}%0Telegram: @${{ github.event.client_payload.telegram }}%0%0Pesan:%0${{ github.event.client_payload.message }}" \
+          -d parse_mode="HTML"
