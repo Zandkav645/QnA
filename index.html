@@ -1,319 +1,175 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QnA ZanDKav</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-        
-        body {
-            background: linear-gradient(135deg, #0a2e38, #0d4d3d);
-            color: #fff;
-            min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
-        }
-        
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem;
-            position: relative;
-            z-index: 10;
-        }
-        
-        h1 {
-            text-align: center;
-            margin-bottom: 2rem;
-            font-size: 2.5rem;
-            background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 10px rgba(79, 172, 254, 0.3);
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-        
-        @keyframes glow {
-            from {
-                text-shadow: 0 0 10px rgba(79, 172, 254, 0.3);
-            }
-            to {
-                text-shadow: 0 0 20px rgba(79, 172, 254, 0.6), 0 0 30px rgba(79, 172, 254, 0.4);
-            }
-        }
-        
-        .form-container {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 2rem;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-            position: relative;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #a1ffce;
-            font-weight: 500;
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            color: #fff;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-        
-        .form-control:focus {
-            outline: none;
-            border-color: #4facfe;
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.2);
-        }
-        
-        textarea.form-control {
-            min-height: 120px;
-            resize: vertical;
-        }
-        
-        .btn {
-            display: inline-block;
-            background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
-            color: #fff;
-            border: none;
-            padding: 12px 30px;
-            font-size: 1rem;
-            font-weight: 500;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        }
-        
-        .btn:active {
-            transform: translateY(1px);
-        }
-        
-        .btn::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to right, #00f2fe 0%, #4facfe 100%);
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .btn:hover::after {
-            opacity: 1;
-        }
-        
-        .message {
-            display: none;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-top: 1rem;
-            text-align: center;
-            animation: fadeIn 0.5s ease-out;
-        }
-        
-        .success-message {
-            background: rgba(46, 213, 115, 0.2);
-            border: 1px solid #2ed573;
-            color: #2ed573;
-        }
-        
-        .error-message {
-            background: rgba(255, 71, 87, 0.2);
-            border: 1px solid #ff4757;
-            color: #ff4757;
-        }
-        
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        /* Stars Animation */
-        .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
-        }
-        
-        .star {
-            position: absolute;
-            background: #fff;
-            border-radius: 50%;
-            animation: fall linear infinite;
-        }
-        
-        @keyframes fall {
-            0% {
-                transform: translateY(-100vh) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(100vh) rotate(360deg);
-                opacity: 0;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>QnA ZanDKav</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(ellipse at bottom, #1b2e30 0%, #0f2027 100%);
+      overflow: hidden;
+      color: #fff;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 40px;
+      color: #00ff88;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 50px auto;
+      background: rgba(0, 255, 136, 0.1);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px #00ff88;
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 5px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      background: #001f1a;
+      border: 1px solid #00ff88;
+      color: white;
+      border-radius: 8px;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      font-size: 18px;
+      background: linear-gradient(45deg, #00ff88, #00cc66);
+      border: none;
+      color: black;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #00ff88;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+  </style>
 </head>
 <body>
-    <div class="stars" id="stars"></div>
-    
-    <div class="container">
-        <h1>QnA ZanDKav</h1>
-        
-        <div class="form-container">
-            <form id="qnaForm">
-                <div class="form-group">
-                    <label for="message">Pesan yang mau dikirim</label>
-                    <textarea class="form-control" id="message" required></textarea>
-                </div>
-                
-                <div class="form-group">
-                    <label for="name">Nama Pengirim</label>
-                    <input type="text" class="form-control" id="name" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="telegram">Telegram Pengirim</label>
-                    <input type="text" class="form-control" id="telegram" required>
-                </div>
-                
-                <button type="submit" class="btn" id="submitBtn">Kirim Pesan</button>
-                
-                <div class="message success-message" id="successMessage">
-                    Pesan berhasil dikirim ke Owner Telegram!
-                </div>
-                
-                <div class="message error-message" id="errorMessage">
-                    Gagal mengirim pesan. Silakan coba lagi.
-                </div>
-            </form>
-        </div>
-    </div>
 
-    <script>
-        // Create stars
-        const starsContainer = document.getElementById('stars');
-        const starCount = 50;
-        
-        for (let i = 0; i < starCount; i++) {
-            const star = document.createElement('div');
-            star.classList.add('star');
-            
-            const size = Math.random() * 2 + 1;
-            star.style.width = `${size}px`;
-            star.style.height = `${size}px`;
-            star.style.left = `${Math.random() * 100}vw`;
-            star.style.animationDuration = `${Math.random() * 10 + 5}s`;
-            star.style.animationDelay = `${Math.random() * 5}s`;
-            star.style.opacity = Math.random() * 0.5 + 0.5;
-            
-            starsContainer.appendChild(star);
+  <canvas id="stars"></canvas>
+
+  <h1>QnA ZanDKav</h1>
+  <div class="container">
+    <label for="pesan">Pesan:</label>
+    <textarea id="pesan" rows="4" placeholder="Tulis pesan..."></textarea>
+
+    <label for="nama">Nama Pengirim:</label>
+    <input type="text" id="nama" placeholder="Nama Anda">
+
+    <label for="tele">Username Telegram:</label>
+    <input type="text" id="tele" placeholder="@username">
+
+    <button onclick="kirimPesan()">KIRIM</button>
+  </div>
+
+  <script>
+    function kirimPesan() {
+      const pesan = document.getElementById("pesan").value.trim();
+      const nama = document.getElementById("nama").value.trim();
+      const tele = document.getElementById("tele").value.trim();
+
+      if (!pesan || !nama || !tele) {
+        alert("Semua kolom harus diisi!");
+        return;
+      }
+
+      const token = "7517010272:AAHUdO3X1WM_zXNHP8eqtfhGNmF0w-6EfxA";
+      const chatId = "7849712634";
+      const teks = `📝 *Pesan Baru dari QnA ZanDKav*\n\n📩 *Pesan*: ${pesan}\n👤 *Nama*: ${nama}\n📱 *Telegram*: ${tele}`;
+
+      fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: teks,
+          parse_mode: "Markdown"
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert("Pesan berhasil dikirim!");
+        document.getElementById("pesan").value = "";
+        document.getElementById("nama").value = "";
+        document.getElementById("tele").value = "";
+      })
+      .catch(error => {
+        alert("Gagal mengirim pesan.");
+        console.error("Error:", error);
+      });
+    }
+
+    // Animasi bintang jatuh
+    const canvas = document.getElementById('stars');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    function createStar() {
+      return {
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 2,
+        speed: Math.random() * 1.5 + 0.5
+      };
+    }
+
+    function drawStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#00ff88";
+      for (let i = 0; i < stars.length; i++) {
+        let star = stars[i];
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+        ctx.fill();
+        star.y += star.speed;
+        if (star.y > canvas.height) {
+          star.y = 0;
+          star.x = Math.random() * canvas.width;
         }
-        
-        // Form submission
-        const qnaForm = document.getElementById('qnaForm');
-        const submitBtn = document.getElementById('submitBtn');
-        const successMessage = document.getElementById('successMessage');
-        const errorMessage = document.getElementById('errorMessage');
-        
-        qnaForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const message = document.getElementById('message').value;
-            const name = document.getElementById('name').value;
-            const telegram = document.getElementById('telegram').value;
-            
-            // Hide previous messages
-            successMessage.style.display = 'none';
-            errorMessage.style.display = 'none';
-            
-            // Add loading state
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Mengirim...';
-            
-            try {
-                // Replace these with your actual values!
-                const GITHUB_USERNAME = 'zandkav645'; // Ganti dengan username GitHub Anda
-                const GITHUB_TOKEN = 'github_pat_xxx'; // Ganti dengan token GitHub Anda
-                const REPO_NAME = 'QnA-ZanDKav'; // Ganti jika nama repo berbeda
-                
-                const response = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/dispatches`, {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `token ${GITHUB_TOKEN}`,
-                        'Accept': 'application/vnd.github.everest-preview+json',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        event_type: 'new_message',
-                        client_payload: {
-                            message: message,
-                            name: name,
-                            telegram: telegram
-                        }
-                    })
-                });
-                
-                if (response.ok) {
-                    successMessage.style.display = 'block';
-                    qnaForm.reset();
-                } else {
-                    errorMessage.style.display = 'block';
-                    console.error('GitHub API Error:', await response.text());
-                }
-            } catch (error) {
-                errorMessage.style.display = 'block';
-                console.error('Network Error:', error);
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Kirim Pesan';
-            }
-        });
-    </script>
+      }
+      requestAnimationFrame(drawStars);
+    }
+
+    resize();
+    window.addEventListener('resize', resize);
+    for (let i = 0; i < 100; i++) stars.push(createStar());
+    drawStars();
+  </script>
+
 </body>
 </html>
